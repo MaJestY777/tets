@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>修改信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet"/>
+    <!-- font CSS -->
+    <link href='@/http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" th:href="@{/css/font.css}" type="text/css"/>
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="js/jquery2.0.3.min.js"></script>
+</head>
+<body>
+<section id="container">
+    <!--header start-->
+    <header class="header fixed-top clearfix">
+        <!--logo start-->
+        <div class="brand">
+
+            <a href="index.html" class="logo">
+                水务云平台
+            </a>
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars"></div>
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+            <!-- sidebar menu start-->
+            <div class="leftside-navigation">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li class="sub-menu">
+                        <a class="active" href="javascript:;">
+                            <i class="fa fa-th"></i>
+                            <span>抄收录用</span>
+                        </a>
+                        <ul class="sub">
+                            <li class="active"><a th:href="@{/}">录用信息</a></li>
+                            <li ><a th:href="@{/entry_mana}">抄收录用</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="/admin">
+                            <i class="fa fa-user"></i>
+                            <span>返回后台</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="table-agile-info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        修改信息
+                    </div>
+                    <div class="row w3-res-tb" style="display: flex">
+
+                    </div>
+                    <div class="table-responsive;text-align: center; margin:0 auto;">
+                        <center>
+                            <form th:action="@{/update_entry}" method="post" class="form-inline" >
+                                <br><br>
+                                <div class="form-group">
+                                    <label for="exampleInputName2">用户名&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="name" type="text" class="form-control" id="exampleInputName2"
+                                           th:value="${session.update_entry_pojo.getName()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>设备编码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="equipment_id" type="text" class="form-control"
+                                           th:value="${session.update_entry_pojo.getEquipment_id()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>结算流量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="settlement_flow" type="text" class="form-control" id="exampleInputEmail4"
+                                           th:value="${session.update_entry_pojo.getSettlement_flow()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>累计流量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="cumulative_flow" type="text" class="form-control" id="exampleInputEmail5"
+                                           th:value="${session.update_entry_pojo.getCumulative_flow()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>上月使用&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="Last_use" type="text" class="form-control" id="exampleInputEmail6"
+                                           th:value="${session.update_entry_pojo.getLast_use}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>水表余额&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="water_meter_balance" type="text" class="form-control" id="exampleInputEmail7"
+                                           th:value="${session.update_entry_pojo.getWater_meter_balance()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>设备状态&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="equipment_status" type="text" class="form-control" id="examp"
+                                           th:value="${session.update_entry_pojo.getEquipment_status()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>通讯状态&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="communication_status" type="text" class="form-control" id="ex"
+                                           th:value="${session.update_entry_pojo.getCommunication_status()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>抄收状态&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="reading_status" type="text" class="form-control" id="a1"
+                                           th:value="${session.update_entry_pojo.getReading_status()}">
+                                </div>
+                                <br><br>
+                                <div class="form-group">
+                                    <label>操作时间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                    <input name="operation_time" type="date" class="form-control" id="a2"
+                                           th:value="${session.update_entry_pojo.getOperation_time()}">
+                                </div>
+                                <br><br>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </form>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!--main content end-->
+</section>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="js/jquery.scrollTo.js"></script>
+<script>
+    const addBtn = document.querySelector('#addBtn');
+    // console.log(addBtn)
+    addBtn.onclick = function () {
+        const addForm = document.querySelector('#addForm')
+        if (addForm.style.display == "none") {
+            addForm.style.display = "block"
+        } else {
+            addForm.style.display = "none"
+        }
+
+
+    }
+
+</script>
+</body>
+</html>

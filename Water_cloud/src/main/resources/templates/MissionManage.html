@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org">
+  <title>任务管理</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="keywords" content=""/>
+  <script type="application/x-javascript"> addEventListener("load", function () {
+    setTimeout(hideURLbar, 0);
+  }, false);
+
+  function hideURLbar() {
+    window.scrollTo(0, 1);
+  } </script>
+  <!-- bootstrap-css -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <!-- //bootstrap-css -->
+  <!-- Custom CSS -->
+  <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
+  <link th:href="@{/css/style-responsive.css}" rel="stylesheet"/>
+  <!-- font CSS -->
+  <link href='@/http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <!-- font-awesome icons -->
+  <link rel="stylesheet" th:href="@{/css/font.css}" type="text/css"/>
+  <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+  <!-- //font-awesome icons -->
+  <script src="js/jquery2.0.3.min.js"></script>
+</head>
+<body>
+<section id="container">
+  <!--header start-->
+  <header class="header fixed-top clearfix">
+    <!--logo start-->
+    <div class="brand">
+
+      <a href="/index" class="logo">
+        水务云平台
+      </a>
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars"></div>
+      </div>
+    </div>
+  </header>
+  <!--header end-->
+  <!--sidebar start-->
+  <aside>
+    <div id="sidebar" class="nav-collapse">
+      <!-- sidebar menu start-->
+      <div class="leftside-navigation">
+        <ul class="sidebar-menu" id="nav-accordion">
+          <li class="sub-menu">
+            <a class="active" href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>后台管理</span>
+            </a>
+            <ul class="sub">
+              <li class="active"><a th:href="@{/entry_mana}">抄收录用</a></li>
+              <li><a th:href="@{/mission_mana}">定时任务</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/index">
+              <i class="fa fa-user"></i>
+              <span>返回首页</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="table-agile-info">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            任务管理
+          </div>
+          <div class="row w3-res-tb" style="display: flex">
+            <div class="col-sm-5 m-b-xs" style="position:relative; left: 100px;">
+              <a th:href="@{/mission_add}" class="btn btn-primary" ui-toggle-class="">添加任务</a>
+            </div>
+            <form method="post" th:action="@{/mission_search}">
+              <div class="input-group" style="position: relative; right: -300px;">
+                <input th:type="text" placeholder="请输入任务名称" th:name="search_mission_M_Name"><span
+                      class="input-group-btn">
+                                <input type="submit" class="btn btn-sm btn-default" value="查询">
+                                </span>
+              </div>
+            </form>
+
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+              <thead>
+              <tr>
+                <th>任务名称</th>
+                <th>任务区域</th>
+                <th>价格模式</th>
+                <th>抄收间隔</th>
+                <th>定时时间</th>
+                <th>任务说明</th>
+                <th>是否禁用</th>
+                <th style="width:40px;"></th>
+                <th style="width:40px;"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="wares:${missionsArr}">
+                <td>[[${wares.M_Name}]]</td>
+                <td>[[${wares.M_Aerar}]]</td>
+                <td>[[${wares.M_Price}]]</td>
+                <td>[[${wares.M_Sep}]]</td>
+                <td>[[${wares.M_Explain}]]</td>
+                <td>[[${wares.M_Time}]]</td>
+                <td>[[${wares.M_Able}]]</td>
+                <td>
+                  <a th:href="@{/to_update_mission}+${wares.M_Name}" class="active" ui-toggle-class=""><i
+                          class="fa fa-pencil text-success text-active "></i></a>
+                </td>
+                <td>
+                  <a th:href="@{/del_mission}+${wares.M_Name}" class="active" ui-toggle-class=""><i
+                          class="fa fa-times text-danger text"></i></a>
+                </td>
+                <td>
+                  <progress id='progress' value="0" max="100" ></progress>
+                  <button onclick="start_run()">启动</button>
+                  <button onclick="stop_run()">禁止</button>
+                  <script>
+                    var lick
+                    var n=0;
+                    function start_run()
+                    {
+                      var progress1=document.getElementById("progress")
+                      n=n+0.1
+                      cur_task=100-n
+                      progress1.value=n
+                      lick=setTimeout("start_run("+n+")",100)
+
+                    }
+                    function stop_run()
+                    {
+                      clearTimeout(lick)
+                      var progress1=document.getElementById("progress")
+                      alert(progress1.value)
+                    }
+                  </script>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <footer class="panel-footer">
+            <div class="row">
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!--main content end-->
+</section>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="js/jquery.scrollTo.js"></script>
+<script>
+  const addBtn = document.querySelector('#addBtn');
+  // console.log(addBtn)
+  addBtn.onclick = function () {
+    const addForm = document.querySelector('#addForm')
+    if (addForm.style.display == "none") {
+      addForm.style.display = "block"
+    } else {
+      addForm.style.display = "none"
+    }
+
+
+  }
+
+</script>
+</body>
+</html>

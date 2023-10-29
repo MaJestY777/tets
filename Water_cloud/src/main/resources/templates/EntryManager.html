@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>信息管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet"/>
+    <!-- font CSS -->
+    <link href='@/http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" th:href="@{/css/font.css}" type="text/css"/>
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="js/jquery2.0.3.min.js"></script>
+</head>
+<body>
+<section id="container">
+    <!--header start-->
+    <header class="header fixed-top clearfix">
+        <!--logo start-->
+        <div class="brand">
+
+            <a href="/index" class="logo">
+                水务云平台
+            </a>
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars"></div>
+            </div>
+        </div>
+
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+            <!-- sidebar menu start-->
+            <div class="leftside-navigation">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li class="sub-menu">
+                        <a class="active" href="javascript:;">
+                            <i class="fa fa-th"></i>
+                            <span>后台管理</span>
+                        </a>
+                        <ul class="sub">
+                            <li class="active"><a th:href="@{/entry_mana}">抄收录用</a></li>
+                            <li><a th:href="@{/mission_mana}">定时任务</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="/index">
+                            <i class="fa fa-user"></i>
+                            <span>返回首页</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="table-agile-info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        信息管理
+                    </div>
+                    <div class="row w3-res-tb" style="display: flex">
+                        <div class="col-sm-5 m-b-xs" style="position:relative; left: 520px;">
+                            <a th:href="@{/entry_add}" class="btn btn-primary" ui-toggle-class="">抄收录入</a>
+                        </div>
+                        <form method="post" th:action="@{/entry_seach}">
+                            <div class="input-group" style="position: relative; right: -400px;">
+                                <input th:type="text" placeholder="请输入信息equipment_id" th:name="seach_entry_equipment_id">
+                                <span class="input-group-btn">
+                                <input type="submit" class="btn btn-sm btn-default" value="查询">
+                                </span>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                            <tr>
+                                <th>用户名</th>
+                                <th>设备编码</th>
+                                <th>结算流量</th>
+                                <th>累计流量</th>
+                                <th>上月使用</th>
+                                <th>水表余额</th>
+                                <th>设备状态</th>
+                                <th>通讯状态</th>
+                                <th>抄收状态</th>
+                                <th>操作时间</th>
+                                <th style="width:40px;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="wares:${entryArr}">
+                                <td>[[${wares.name}]]</td>
+                                <td>[[${wares.equipment_id}]]</td>
+                                <td>[[${wares.settlement_flow}]]</td>
+                                <td>[[${wares.cumulative_flow}]]</td>
+                                <td>[[${wares.last_use}]]</td>
+                                <td>[[${wares.water_meter_balance}]]</td>
+                                <td>[[${wares.equipment_status}]]</td>
+                                <td>[[${wares.communication_status}]]</td>
+                                <td>[[${wares.reading_status}]]</td>
+                                <td>[[${wares.operation_time}]]</td>
+                                <td>
+                                    <a th:href="@{/to_update_entry}+${wares.equipment_id}" class="active" ui-toggle-class=""><i
+                                            class="fa fa-pencil text-success text-active "></i></a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/del_entry}+${wares.equipment_id}" class="active" ui-toggle-class=""><i
+                                            class="fa fa-times text-danger text"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <a th:href="@{/entry_mana?page=1&size=10}">First</a>
+                            <a th:href="@{/entry_mana?page=1&size=10}" th:if="${currentPage > 1}">Previous</a>
+                            <span th:text="${currentPage}"></span>
+                            <a th:href="@{/entry_mana?page=2&size=10}" th:if="${currentPage < totalPages}">Next</a>
+                            <a th:href="@{/entry_mana?page=2&size=10}">Last</a>
+                        </div>
+                    </div>
+                    <footer class="panel-footer">
+                        <div class="row">
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!--main content end-->
+</section>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="js/jquery.scrollTo.js"></script>
+<script>
+    const addBtn = document.querySelector('#addBtn');
+    // console.log(addBtn)
+    addBtn.onclick = function () {
+        const addForm = document.querySelector('#addForm')
+        if (addForm.style.display == "none") {
+            addForm.style.display = "block"
+        } else {
+            addForm.style.display = "none"
+        }
+
+
+    }
+
+</script>
+</body>
+</html>
