@@ -1,0 +1,4 @@
+github上传文件指令：
+git add “文件”
+git commit -m “备注”
+git push origin master 
